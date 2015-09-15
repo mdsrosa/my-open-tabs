@@ -1,6 +1,9 @@
 # My Open Tabs
 This Google Chrome Extension displays a list of open tabs in the current window.
 
+# Screenshot
+![My Open Tabs](screenshots/my_open_tabs.png)
+
 # Installation
 
 1. Clone repository `git clone https://github.com/mdsrosa/my-open-tabs.git`.
