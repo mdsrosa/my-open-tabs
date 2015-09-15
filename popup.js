@@ -15,12 +15,27 @@ $(document).ready(function(){
   chrome.tabs.query({
     currentWindow: true
   }, function(tabs) {
-    var i, ul_tabs = $('ul#tabs');
+    var i, $ul = $('ul#tabs');
 
     for(i = 0; i < tabs.length; i++){
-      tab_id = tabs[i].id
-      tab_favicon_url = tabs[i].favIconUrl
-      ul_tabs.append('<li><a href="#" id="'+tab_id+'" class="list-group-item"> '+'<img src="'+tab_favicon_url+'" id="favicon"/> '+ tabs[i].title + '</a></li>');
+      tab = tabs[i];
+      tab_id = tab.id
+      tab_favicon_url = tab.favIconUrl
+      tab_title = tab.title
+
+      $li = $('<li></li>');
+      $li.attr({class: 'list-group-item'});
+
+      $link = $('<a></a>');
+      $link.attr({href: '#', id: tab_id});
+      $favicon = $('<img />');
+      $favicon.attr({src: tab_favicon_url, id: 'favicon'});
+      
+      $link.append($favicon);
+      $link.append(tab_title);
+
+      $li.append($link);
+      $ul.append($li);
     }
 
     $('ul#tabs li a').each(function(index){
