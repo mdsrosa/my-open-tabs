@@ -3,6 +3,11 @@
  *
  */
 
+// labels
+var $pinned_label = $('<span class="label label-default">pinned</span>');
+var $active_label = $('<span class="label label-success">active</span>');
+var $audible_label = $('<span class="label label-primary">audible</span>');
+
 function go_to_tab(tab_id){
   return chrome.tabs.update(tab_id, {
     active: true
@@ -26,7 +31,21 @@ function create_tab_link(tab){
     $link.append(tab.title);
 
     $li.append($link);
-    $ul.append($li);
+    
+    // applying labels
+    if(tab.pinned == true){
+      $li.append($pinned_label);
+    }
+    
+    if(tab.active == true){
+      $li.append($active_label);
+    }
+    
+    if(tab.audible == true){
+      $li.append($audible_label);
+    }
+
+   $ul.append($li);
 }
 
 $(document).ready(function(){
