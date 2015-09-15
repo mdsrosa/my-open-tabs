@@ -9,25 +9,41 @@ var $active_label = $('<span class="label label-success">active</span>');
 var $audible_label = $('<span class="label label-primary">audible</span>');
 
 function go_to_tab(tab_id){
-  return chrome.tabs.update(tab_id, {
+  chrome.tabs.update(tab_id, {
     active: true
   }, function(tab_updated){
     console.log('tab updated: ' + tab_id);
   });
 }
 
+function close_tab(tab_id){
+ chrome.tabs.remove(tab_id);
+}
+
 function apply_label_to_tab(li, tab){
-  if(tab.pinned == true){
+  if(tab.pinned == true)
     $li.append($pinned_label);
-  }
   
-  if(tab.active == true){
+  if(tab.active == true)
     $li.append($active_label);
-  }
   
-  if(tab.audible == true){
+  if(tab.audible == true)
     $li.append($audible_label);
-  }
+}
+
+function add_close_button_to_li(li, tab_id){
+  $button = $('<button></button>');
+  $button.attr({class: 'btn btn-danger btn-xs', id: tab_id, style: 'float: right', title: 'Close tab'});
+  $span = $('<span></span>');
+  $span.attr({class: 'glyphicon glyphicon-remove'});
+  $button.append($span);
+  
+  $button.click(function(){
+    close_tab(tab_id);
+    li.fadeOut();
+  });
+
+  li.append($button);
 }
 
 function create_tab_link(tab){
@@ -47,6 +63,7 @@ function create_tab_link(tab){
   $li.append($link);
   
   apply_label_to_tab($li, tab);
+  add_close_button_to_li($li, tab.id);
 
   $ul.append($li);
 }
