@@ -15,10 +15,7 @@ $(document).ready(function(){
   chrome.tabs.query({
     currentWindow: true
   }, function(tabs) {
-    console.log('Total tabs: ' + tabs.length);
-
-    var i;
-    var $ul_tabs = $('ul#tabs');
+    var i, $ul_tabs = $('ul#tabs');
 
     for(i = 0; i < tabs.length; i++){
       tab_id = tabs[i].id
@@ -26,11 +23,9 @@ $(document).ready(function(){
     }
 
     $('ul#tabs li a').each(function(index){
-      console.log('adding eventlistener to <a> ' + index + ' tab id: ' + $(this).attr('id'));
       $(this).click(function(){
         go_to_tab(parseInt($(this).attr('id')));
       });
     });
-
   });
 });
