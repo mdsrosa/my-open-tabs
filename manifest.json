@@ -3,7 +3,7 @@
 
   "name": "My Open Tabs",
   "description": "This extensions displays a list of open tabs in the current window.",
-  "version": "0.3",
+  "version": "0.3.1",
 
   "browser_action": {
     "default_icon": "icon.png",
