@@ -16,36 +16,39 @@ function go_to_tab(tab_id){
   });
 }
 
+function apply_label_to_tab(li, tab){
+  if(tab.pinned == true){
+    $li.append($pinned_label);
+  }
+  
+  if(tab.active == true){
+    $li.append($active_label);
+  }
+  
+  if(tab.audible == true){
+    $li.append($audible_label);
+  }
+}
+
 function create_tab_link(tab){
-    $ul = $('ul#tabs');
-    
-    $li = $('<li></li>');
-    $li.attr({class: 'list-group-item'});
+  $ul = $('ul#tabs');
+  
+  $li = $('<li></li>');
+  $li.attr({class: 'list-group-item'});
 
-    $link = $('<a></a>');
-    $link.attr({href: '#', id: tab.id});
-    $favicon = $('<img />');
-    $favicon.attr({src: tab.favIconUrl, id: 'favicon'});
-    
-    $link.append($favicon);
-    $link.append(tab.title);
+  $link = $('<a></a>');
+  $link.attr({href: '#', id: tab.id});
+  $favicon = $('<img />');
+  $favicon.attr({src: tab.favIconUrl, id: 'favicon'});
+  
+  $link.append($favicon);
+  $link.append(tab.title);
 
-    $li.append($link);
-    
-    // applying labels
-    if(tab.pinned == true){
-      $li.append($pinned_label);
-    }
-    
-    if(tab.active == true){
-      $li.append($active_label);
-    }
-    
-    if(tab.audible == true){
-      $li.append($audible_label);
-    }
+  $li.append($link);
+  
+  apply_label_to_tab($li, tab);
 
-   $ul.append($li);
+  $ul.append($li);
 }
 
 $(document).ready(function(){
