@@ -3,6 +3,8 @@
  *
  */
 
+var TITLE_LENGTH_LIMIT = 50;
+
 // labels
 var $pinned_label = $('<span class="label label-default">pinned</span>');
 var $active_label = $('<span class="label label-success">active</span>');
@@ -58,7 +60,11 @@ function create_tab_link(tab){
   $favicon.attr({src: tab.favIconUrl, id: 'favicon'});
   
   $link.append($favicon);
-  $link.append(tab.title);
+  if(tab.title.length > TITLE_LENGTH_LIMIT){
+    $link.append(tab.title.substring(0, TITLE_LENGTH_LIMIT) + '...');
+  }else{
+    $link.append(tab.title);
+  }
 
   $li.append($link);
   
