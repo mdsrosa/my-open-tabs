@@ -20,3 +20,6 @@ This Google Chrome Extension displays a list of open tabs in the current window.
 3. Click `Keyboard shortcuts` link.
 4. Define a shortcut for "My Open Tabs".
 6. Click `Ok` button.
+
+## License
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
