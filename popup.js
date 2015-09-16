@@ -109,5 +109,7 @@ $(document).ready(function(){
       });
     });
 
+    $('#tabs_count').text(tabs.length);
+
   });
 });
