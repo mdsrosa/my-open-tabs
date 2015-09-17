@@ -25,8 +25,18 @@ function go_to_tab(tab_id){
   });
 }
 
-function close_tab(tab_id){
- chrome.tabs.remove(tab_id);
+function close_tab(tab_id){ 
+  chrome.tabs.get(tab_id, function(tab){
+    // save the tab's title to use it later
+    tab_title = tab.title
+    chrome.tabs.remove(tab.id);
+    $('#alert_success').html('Tab <strong>' + get_tab_title(tab_title) + '</strong> was successfully closed.').show();
+  });
+
+  // fade out the message after 5 seconds
+  setTimeout(function(){
+    $('#alert_success').fadeOut();
+  }, 5000);
 }
 
 // list creation functions
@@ -42,11 +52,15 @@ function add_favicon(li, favicon_url){
   li.append(favicon);
 }
 
-function add_title(link, tab_title){
+function get_tab_title(tab_title){
   title = tab_title
   if(tab_title.length > TITLE_LENGTH_LIMIT)
     title = tab_title.substring(0, TITLE_LENGTH_LIMIT) + '...';
-  
+  return title;
+}
+
+function add_title(link, tab_title){
+  title = get_tab_title(tab_title);
   link.append(title);
 }
 
