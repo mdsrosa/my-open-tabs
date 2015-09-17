@@ -12,6 +12,11 @@ var $active_label = $('<span class="label label-success">active</span>');
 var $audible_label = $('<span class="label label-primary">audible</span>');
 
 // tab functions
+
+function update_total_tabs_count(){
+  $('#tabs_count').text($('ul#tabs li').length);
+}
+
 function go_to_tab(tab_id){
   chrome.tabs.update(tab_id, {
     active: true
@@ -25,6 +30,7 @@ function close_tab(tab_id){
 }
 
 // list creation functions
+
 function add_favicon(li, favicon_url){
   favicon = $('<img />');
   
@@ -71,7 +77,8 @@ function add_close_button(li, tab_id){
 
   button.click(function(){
     close_tab(tab_id);
-    li.fadeOut();
+    li.remove();
+    update_total_tabs_count();
   });
 
   li.append(button);
@@ -109,7 +116,6 @@ $(document).ready(function(){
       });
     });
 
-    $('#tabs_count').text(tabs.length);
-
+    update_total_tabs_count();
   });
 });
