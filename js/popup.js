@@ -13,6 +13,20 @@ var $audible_label = $('<span class="label label-primary">audible</span>');
 
 // tab functions
 
+function close_all_tabs(){
+  chrome.tabs.query({
+    currentWindow: true
+  }, function(tabs){
+      var i;
+      var tabs_ids = new Array();
+
+      for(i = 0; i < tabs.length; i++){
+        tabs_ids.push(tabs[i].id);
+      }
+      chrome.tabs.remove(tabs_ids);
+  });
+}
+
 function update_total_tabs_count(){
   $('#tabs_count').text($('ul#tabs li').length);
 }
@@ -128,6 +142,10 @@ $(document).ready(function(){
         tab_id = parseInt($(this).attr('id'));
         go_to_tab(tab_id);
       });
+    });
+
+    $('#btn-close-all-tabs').click(function(){
+      close_all_tabs();
     });
 
     update_total_tabs_count();

@@ -1,0 +1,17 @@
+body {
+  width: 500px;
+}
+
+#favicon {
+  width: 16px;
+  margin-right: 10px;
+}
+
+.label {
+  margin-left: 10px;
+}
+
+#close-all-tabs-button{
+  margin-top: -10px;
+  margin-left: 375px;
+}

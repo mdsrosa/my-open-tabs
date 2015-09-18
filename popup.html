@@ -3,33 +3,42 @@
   <head>
     <title>My Open Tabs</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-
-    <style>
-      body {
-        width: 500px;
-      }
-
-      #favicon {
-        width: 16px;
-        margin-right: 10px;
-      }
-
-      .label {
-        margin-left: 10px;
-      }
-    </style>
-
-    <script src="jquery.min.js"></script>
-    <script src="popup.js"></script>
+    <link rel="stylesheet" href="css/popup.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/popup.js"></script>
   </head>
   <body>
     <div class="alert alert-success" role="alert" id="alert_success" style="display: none"></div>
-    <ul id="tabs" class="list-group"></ul>
 
+    <ul id="tabs" class="list-group"></ul>
+    
+   <button type="button" class="btn btn-danger btn-sm" id="close-all-tabs-button" data-toggle="modal" data-target="#close-all-tabs-modal" aria-label="Left Align">
+      <span class="glyphicon glyphicon-remove"></span> Close all tabs</button>
+    
     <center>
       <label>Total of <span id="tabs_count" class="badge"></span> open tabs.</label>
     </center>
 
     <center>My Open Tabs &copy; 2015</center>
+
+    <div class="modal fade" id="close-all-tabs-modal" tabindex="-1" role="modal" aria-label="close">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Closing all tabs</h4>
+              <div class="modal-body">
+                You're about to close all the tabs of the current window. Do you want to proceed?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-success" id="btn-close-all-tabs">Yes</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
