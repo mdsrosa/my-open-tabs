@@ -10,12 +10,32 @@
   </head>
   <body>
     <div class="alert alert-success" role="alert" id="alert_success" style="display: none"></div>
+    <div class="alert alert-danger text-center" role="alert" id="alert_error" style="display: none"></div>
 
     <ul id="tabs" class="list-group"></ul>
-    
-   <button type="button" class="btn btn-danger btn-sm" id="close-all-tabs-button" data-toggle="modal" data-target="#close-all-tabs-modal" aria-label="Left Align">
-      <span class="glyphicon glyphicon-remove"></span> Close all tabs</button>
-    
+
+    <div class="container" id="form-container">
+      <form class="row">
+        <div class="col-xs-8">
+          <input type="text" class="form-control" placeholder="Perdeu a tab?">
+        </div>
+        <div class="col-xs-4">
+
+          <button type="button" class="btn btn-danger btn-md btn-block" id="close-all-tabs-button" data-toggle="modal" data-target="#close-all-tabs-modal" aria-label="Left Align">
+             <span class="glyphicon glyphicon-remove"></span>
+             Close all tabs
+          </button>
+        </div>
+      </form>
+      <div class="row" id="filter-list">
+        <div class="container">
+          <label for="">Filter by: </label>
+          <span class="label label-default" data-type="pinned">pinned</span>
+          <span class="label label-primary" data-type="audible">audible</span>
+        </div>
+      </div>
+    </div>
+
     <center>
       <label>Total of <span id="tabs_count" class="badge"></span> open tabs.</label>
     </center>
