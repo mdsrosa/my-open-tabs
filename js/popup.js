@@ -4,7 +4,8 @@
  */
 
 var TITLE_LENGTH_LIMIT = 50;
-var favicon_url_regex = /localhost/i
+var favicon_url_regex = /localhost/i;
+var tab_list = [];
 
 // labels
 var $pinned_label = $('<span class="label label-default">pinned</span>');
@@ -18,7 +19,7 @@ function close_all_tabs(){
     currentWindow: true
   }, function(tabs){
       var i;
-      var tabs_ids = new Array();
+      var tabs_ids = [];
 
       for(i = 0; i < tabs.length; i++){
         tabs_ids.push(tabs[i].id);
@@ -39,10 +40,10 @@ function go_to_tab(tab_id){
   });
 }
 
-function close_tab(tab_id){ 
+function close_tab(tab_id){
   chrome.tabs.get(tab_id, function(tab){
     // save the tab's title to use it later
-    tab_title = tab.title
+    tab_title = tab.title;
     chrome.tabs.remove(tab.id);
     $('#alert_success').html('Tab <strong>' + get_tab_title(tab_title) + '</strong> was successfully closed.').show();
   });
@@ -57,17 +58,17 @@ function close_tab(tab_id){
 
 function add_favicon(li, favicon_url){
   favicon = $('<img />');
-  
-  if(favicon_url == undefined || favicon_url_regex.exec(favicon_url))
+
+  if(favicon_url === undefined || favicon_url_regex.exec(favicon_url))
     favicon_url = "page.png";
-  
+
   favicon.attr({src: favicon_url, id: 'favicon'});
-  
+
   li.append(favicon);
 }
 
 function get_tab_title(tab_title){
-  title = tab_title
+  title = tab_title;
   if(tab_title.length > TITLE_LENGTH_LIMIT)
     title = tab_title.substring(0, TITLE_LENGTH_LIMIT) + '...';
   return title;
@@ -86,13 +87,13 @@ function add_link(li, tab_id, tab_title){
 }
 
 function add_label(li, tab){
-  if(tab.pinned == true)
+  if(tab.pinned === true)
     li.append($pinned_label);
-  
-  if(tab.active == true)
+
+  if(tab.active === true)
     li.append($active_label);
-  
-  if(tab.audible == true)
+
+  if(tab.audible === true)
     li.append($audible_label);
 }
 
@@ -114,7 +115,7 @@ function add_close_button(li, tab_id){
 
 function create_tab_link(tab){
   ul = $('ul#tabs');
-  
+
   li = $('<li></li>');
   li.attr({class: 'list-group-item'});
 
@@ -126,25 +127,59 @@ function create_tab_link(tab){
   ul.append(li);
 }
 
+// Search functions
+function filter_list(condition) {
+  $('#alert_error').html('<strong>OPS!</strong> nothing find here :/.').hide();
+  $("#tabs li").remove();
+
+  tab_list.filter(function (t) {
+    return condition(t);
+  }).forEach(function (t) {
+    create_tab_link(t);
+  });
+
+  if ($("#tabs li").length === 0) {
+    $('#alert_error').html('<strong>OPS!</strong> nothing find here :/.').show();
+  }
+}
+function search_in_tabs(argument) {
+  var reg = new RegExp(argument, "gi");
+  filter_list(function (t) {
+    return t.url.match(reg) || t.title.match(reg);
+  });
+}
+
+function filter_tab_by(type) {
+  filter_list(function (t) {
+    return t[type];
+  });
+}
+
 $(document).ready(function(){
   chrome.tabs.query({
     currentWindow: true
   }, function(tabs) {
-    var i;
+    tab_list = tabs;
 
-    for(i = 0; i < tabs.length; i++){
+    for(var i = 0; i < tabs.length; i++){
       tab = tabs[i];
       create_tab_link(tab);
     }
 
-    $('ul#tabs li a').each(function(index){
-      $(this).click(function(){
-        tab_id = parseInt($(this).attr('id'));
-        go_to_tab(tab_id);
-      });
+    $("#form-container").on("keyup", "input", function () {
+      search_in_tabs($(this).val());
     });
 
-    $('#btn-close-all-tabs').click(function(){
+    $("#filter-list").on("click", "span", function (){
+      filter_tab_by($(this).data("type"));
+    });
+
+    $("ul#tabs li a").on("click", function(){
+      tab_id = parseInt($(this).attr('id'));
+      go_to_tab(tab_id);
+    });
+
+    $('#btn-close-all-tabs').on("click", function(){
       close_all_tabs();
     });
 

@@ -11,7 +11,14 @@ body {
   margin-left: 10px;
 }
 
-#close-all-tabs-button{
-  margin-top: -10px;
-  margin-left: 375px;
+#form-container{
+  margin-bottom: 20px;
+}
+
+#filter-list{
+  margin-top: 10px;
+}
+
+#filter-list{
+  cursor: pointer;
 }
