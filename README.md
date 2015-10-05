@@ -2,7 +2,7 @@
 This Google Chrome Extension displays a list of open tabs in the current window.
 
 ## Screenshot
-![My Open Tabs](screenshots/my_open_tabs.png)
+<img src="screenshots/my_open_tabs.png" width="420"/>
 
 ## Installation
 ###### Remember to check the `Developer mode` checkbox.
